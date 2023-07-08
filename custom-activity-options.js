@@ -21,6 +21,10 @@ jQuery(document).ready(function($) {
 });
 
 function createModal() {
+      // Check if modal already exists
+      if (document.getElementById('modal')) {
+        return; // Exit if modal already exists
+      }
       const modal = document.createElement('div');
       modal.id = 'modal';
       modal.className = 'modal';

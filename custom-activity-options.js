@@ -14,7 +14,25 @@ jQuery(document).ready(function($) {
 			var activity_id = $(this).closest(".activity-item").attr("id").replace("activity-", "");
 			var activity_link = custom_activity_options.activity_permalink + 'p/' + activity_id;
 			navigator.clipboard.writeText(activity_link);
-			elementorFrontend.documentsManager.documents[13094].showModal();
+			showCopyModal();
+			// elementorFrontend.documentsManager.documents[13103].showModal();
 		});
-	}, 800);
+	}, 2000);
 });
+
+function createModal() {
+      const modal = document.createElement('div');
+      modal.id = 'modal';
+      modal.className = 'modal';
+      document.body.appendChild(modal);
+}
+
+function showCopyModal() {
+      createModal();
+      const modal = document.getElementById('modal');
+      modal.textContent = 'Link copied';
+      modal.classList.add('show');
+      setTimeout(function() {
+        modal.classList.remove('show');
+      }, 1000);
+}

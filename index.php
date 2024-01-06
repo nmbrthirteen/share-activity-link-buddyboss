@@ -23,9 +23,10 @@ function check_buddyboss_platform() {
     if (!class_exists('BuddyBoss') || !function_exists('bp_is_active') || !bp_is_active('activity')) {
         // BuddyBoss Platform or Activity Feeds is not active
         add_action('admin_notices', 'custom_activity_options_admin_notice');
+        deactivate_plugins(plugin_basename(__FILE__));
     }
 }
-add_action('admin_init', 'check_buddyboss_platform');
+add_action('plugins_loaded', 'check_buddyboss_platform');
 
 function custom_activity_options_admin_notice() {
     ?>

@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Copy Activity Link
 	Description: Adds option to copy link of activity post under more options.
-	Version: 2.2
+	Version: 2.3
 	Author: Nmbrthirteen
  	Author URI: https://github.com/nmbrthirteen/
 */

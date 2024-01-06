@@ -4,6 +4,7 @@
 	Description: Adds option to copy link of activity post under more options.
 	Version: 2.2
 	Author: Nmbrthirteen
+ 	Author URI: https://github.com/nmbrthirteen/
 */
 
 defined( 'ABSPATH' ) || exit;

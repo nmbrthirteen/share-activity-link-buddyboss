@@ -22,11 +22,10 @@ add_action('wp_enqueue_scripts', 'custom_activity_options_scripts', 10);
 function check_buddyboss_platform() {
     if (!class_exists('BuddyBoss') || !function_exists('bp_is_active') || !bp_is_active('activity')) {
         // BuddyBoss Platform or Activity Feeds is not active
-        deactivate_plugins(plugin_basename(__FILE__));
         add_action('admin_notices', 'custom_activity_options_admin_notice');
     }
 }
-register_activation_hook(__FILE__, 'check_buddyboss_platform');
+add_action('admin_init', 'check_buddyboss_platform');
 
 function custom_activity_options_admin_notice() {
     ?>
@@ -35,4 +34,3 @@ function custom_activity_options_admin_notice() {
     </div>
     <?php
 }
-add_action('admin_notices', 'custom_activity_options_admin_notice');

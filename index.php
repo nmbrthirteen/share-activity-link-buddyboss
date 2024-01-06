@@ -5,6 +5,8 @@
 	Version: 2.3
 	Author: Nmbrthirteen
  	Author URI: https://github.com/nmbrthirteen/
+  	License: GPLv2 or later
+	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 defined('ABSPATH') || exit;

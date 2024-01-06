@@ -18,20 +18,3 @@ function custom_activity_options_scripts() {
     wp_add_inline_script('custom-activity-options', 'var custom_activity_options = ' . wp_json_encode(array('activity_permalink' => trailingslashit(bp_get_root_domain() . '/' . bp_get_activity_root_slug()))), 'before');
 }
 add_action('wp_enqueue_scripts', 'custom_activity_options_scripts', 10);
-
-function check_buddyboss_platform() {
-    if (!class_exists('BuddyBoss') || !function_exists('bp_is_active') || !bp_is_active('activity')) {
-        // BuddyBoss Platform or Activity Feeds is not active
-        add_action('admin_notices', 'custom_activity_options_admin_notice');
-        deactivate_plugins(plugin_basename(__FILE__));
-    }
-}
-add_action('plugins_loaded', 'check_buddyboss_platform');
-
-function custom_activity_options_admin_notice() {
-    ?>
-    <div class="notice notice-error is-dismissible">
-        <p><?php esc_html_e('Copy Activity Link requires BuddyBoss Platform and the Activity Feeds component to be active. Please make sure they are installed and activated before activating this plugin.', 'copy-activity-link'); ?></p>
-    </div>
-    <?php
-}

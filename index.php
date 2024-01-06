@@ -5,6 +5,7 @@
 	Version: 2.3
 	Author: Nmbrthirteen
  	Author URI: https://github.com/nmbrthirteen/
+  	Plugin URI: https://github.com/nmbrthirteen/share-activity-link-buddyboss
   	License: GPLv2 or later
 	License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */

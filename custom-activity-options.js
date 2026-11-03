@@ -1,46 +1,68 @@
 "use strict";
-jQuery(document).ready(function ($) {
-  setTimeout(function () {
-    $(".bb-activity-more-options").append(
-      $("<div/>", { class: "generic-button" }).append(
-        $("<a/>", { class: "button item-button bp-secondary-action copy-link" })
-          .append($("<span/>", { class: "delete-label", text: "Copy Link" }))
-          .append(
-            $("<span/>", { class: "bp-screen-reader-text", text: "Copy Link" })
-          )
-      )
-    );
-    $(".copy-link").click(function () {
-      var activity_id = $(this)
-        .closest(".activity-item")
-        .attr("id")
-        .replace("activity-", "");
-      var activity_link =
-        custom_activity_options.activity_permalink + "p/" + activity_id;
-      navigator.clipboard.writeText(activity_link);
-      showCopyModal();
-      // elementorFrontend.documentsManager.documents[13103].showModal();
+
+jQuery(function ($) {
+  function injectButtons() {
+    $(".bb-activity-more-options").each(function () {
+      var $options = $(this);
+
+      if ($options.find(".copy-link").length) {
+        return;
+      }
+
+      $options.append(
+        $("<div/>", { class: "generic-button" }).append(
+          $("<button/>", {
+            type: "button",
+            class: "button item-button bp-secondary-action copy-link",
+          }).append($("<span/>", { text: custom_activity_options.copy_label }))
+        )
+      );
     });
-  }, 2000);
+  }
+
+  injectButtons();
+  $(document).ajaxComplete(injectButtons);
+
+  $(document).on("click", ".copy-link", function () {
+    var activity_id = $(this)
+      .closest(".activity-item")
+      .attr("id")
+      .replace("activity-", "");
+
+    var activity_link =
+      custom_activity_options.activity_permalink + "p/" + activity_id;
+
+    // Wrapped so a missing navigator.clipboard (insecure context) reaches catch.
+    Promise.resolve()
+      .then(function () {
+        return navigator.clipboard.writeText(activity_link);
+      })
+      .then(function () {
+        showToast(custom_activity_options.copied_message);
+      })
+      .catch(function () {
+        showToast(custom_activity_options.error_message);
+      });
+  });
 });
 
-function createModal() {
-  // Check if modal already exists
-  if (document.getElementById("modal")) {
-    return; // Exit if modal already exists
+function createToast() {
+  if (document.getElementById("sal-toast")) {
+    return;
   }
-  const modal = document.createElement("div");
-  modal.id = "modal";
-  modal.className = "modal";
-  document.body.appendChild(modal);
+
+  const toast = document.createElement("div");
+  toast.id = "sal-toast";
+  toast.className = "sal-toast";
+  document.body.appendChild(toast);
 }
 
-function showCopyModal() {
-  createModal();
-  const modal = document.getElementById("modal");
-  modal.textContent = "Link copied";
-  modal.classList.add("show");
+function showToast(message) {
+  createToast();
+  const toast = document.getElementById("sal-toast");
+  toast.textContent = message;
+  toast.classList.add("show");
   setTimeout(function () {
-    modal.classList.remove("show");
+    toast.classList.remove("show");
   }, 1000);
 }

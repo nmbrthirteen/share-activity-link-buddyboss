@@ -1,7 +1,7 @@
-.bb-activity-more-options .generic-button a.copy-link:before {
+.bb-activity-more-options .generic-button .copy-link:before {
     content: "\ee3b";
 }
-.modal {
+.sal-toast {
       position: fixed;
       bottom: 20px;
       left: 50%;
@@ -14,7 +14,6 @@
       transition: opacity 0.5s;
     }
 
-.modal.show {
+.sal-toast.show {
     opacity: 1;
 }
-
